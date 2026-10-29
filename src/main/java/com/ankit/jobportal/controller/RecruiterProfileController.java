@@ -1,7 +1,6 @@
 package com.ankit.jobportal.controller;
 
 
-import ch.qos.logback.core.util.StringUtil;
 import com.ankit.jobportal.entity.RecruiterProfile;
 import com.ankit.jobportal.entity.Users;
 import com.ankit.jobportal.repository.UsersRepository;
@@ -25,12 +24,12 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/recruiter-profile")
-public class RecruiterProfileComtroller {
+public class RecruiterProfileController {
 
     private final UsersRepository usersRepository;
     private final RecruiterProfileService recruiterProfileService;
 
-    public RecruiterProfileComtroller(UsersRepository usersRepository, RecruiterProfileService recruiterProfileService) {
+    public RecruiterProfileController(UsersRepository usersRepository, RecruiterProfileService recruiterProfileService) {
         this.usersRepository = usersRepository;
         this.recruiterProfileService = recruiterProfileService;
     }
@@ -83,8 +82,8 @@ public class RecruiterProfileComtroller {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-
-        return "redirect: /dashboard/";
+        System.out.println("file saves");
+        return "redirect:/dashboard/";
 
     }
 }

@@ -20,13 +20,15 @@ public class RecruiterProfile {
     private String state;
     private String country;
 
+    private String company;
+
     @Column(nullable = true, length =64)
     private String profilePhoto;
 
     public RecruiterProfile() {
     }
 
-    public RecruiterProfile(int userAccountId, Users usersId, String firstName, String lastName, String city, String state, String country, String profilePhoto) {
+    public RecruiterProfile(int userAccountId, Users usersId, String firstName, String lastName, String city, String state, String country, String company, String profilePhoto) {
         this.userAccountId = userAccountId;
         this.usersId = usersId;
         this.firstName = firstName;
@@ -34,11 +36,20 @@ public class RecruiterProfile {
         this.city = city;
         this.state = state;
         this.country = country;
+        this.company = company;
         this.profilePhoto = profilePhoto;
     }
 
     public RecruiterProfile(Users users) {
         this.usersId = users;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 
     public String getCity() {
@@ -105,6 +116,12 @@ public class RecruiterProfile {
         this.profilePhoto = profilePhoto;
     }
 
+    @Transient
+    public String getPhotosImagePath(){
+        if(profilePhoto == null ) return null;
+        return "/photos/recruiter/" + userAccountId+"/"+ profilePhoto;
+    }
+
     @Override
     public String toString() {
         return "RecruiterProfile{" +
@@ -115,6 +132,7 @@ public class RecruiterProfile {
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
                 ", country='" + country + '\'' +
+                ", company='" + company + '\'' +
                 ", profilePhoto='" + profilePhoto + '\'' +
                 '}';
     }
