@@ -1,14 +1,75 @@
-# Dev Job Application — Job Portal
+# 💼 Dev Job Application – Job Portal
 
-A Job Portal web application built using Java, Spring Boot, Spring Security, Thymeleaf, and MySQL. This project is being developed to practice Java backend development and build a full-stack, role-based web application.
+A full-stack Job Portal application built using **Java, Spring Boot, Spring Security, Spring Data JPA, Thymeleaf, and MySQL**.
+
+The application provides separate experiences for Job Seekers and Recruiters, allowing recruiters to manage job postings and job seekers to explore job opportunities.
+
+This project is actively developed to strengthen backend development skills and implement real-world Spring Boot concepts.
 
 ## 🚀 Project Overview
 
-The application provides registration and authentication for users who access the job portal as Job Seekers or Recruiters.
+Dev Job Application is designed to connect recruiters with job seekers through a centralized job portal.
 
-The project focuses on implementing secure authentication, role-based access control, database persistence, and server-side web rendering using the Spring ecosystem.
+The application currently supports user registration, authentication, role-based authorization, recruiter profile management, job posting, and a recruiter dashboard.
 
-## 🛠️ Tech Stack
+### 👥 User Roles
+
+- **Job Seeker:** Registers and logs in to explore job opportunities and view job details.
+- **Recruiter:** Creates a recruiter profile, uploads a profile photo, posts jobs, and manages job postings through a dashboard.
+
+## ✨ Implemented Features
+
+### 1. User Authentication & Authorization
+
+- User registration with email validation.
+- Login and logout functionality.
+- Spring Security-based authentication.
+- Role-based authorization.
+- Custom authentication provider.
+- Custom authentication success handler.
+- Separate user experiences based on assigned authorities.
+
+### 2. Recruiter Profile Management
+
+- Create recruiter profile.
+- Store recruiter information in the database.
+- Upload recruiter profile photo.
+- Save uploaded profile images in user-specific directories.
+- Associate recruiter profiles with registered user accounts.
+
+### 3. Recruiter Job Management
+
+- Create and publish new job postings.
+- Associate job postings with the logged-in recruiter.
+- Save job posting information using Spring Data JPA.
+- Maintain job-related information such as:
+    - Job Title
+    - Job Description
+    - Job Type
+    - Salary
+    - Remote/Work Mode
+    - Company Information
+    - Job Location
+    - Posted Date
+- Edit existing job postings.
+
+### 4. Recruiter Dashboard
+
+- Dedicated recruiter dashboard.
+- Display jobs posted by the logged-in recruiter.
+- Retrieve recruiter-specific job information.
+- Display total candidates associated with each job.
+- Fetch aggregated job information using native SQL queries.
+- Use Spring Data JPA interface projections.
+- Map projection results into custom DTOs.
+
+### 5. Job Seeker Functionality
+
+- Access job details through job-specific URLs.
+- Retrieve job information using the job ID.
+- Display job details using Thymeleaf templates.
+
+## 🛠️ Technology Stack
 
 ### Backend
 - Java 21
@@ -16,6 +77,7 @@ The project focuses on implementing secure authentication, role-based access con
 - Spring Security
 - Spring Data JPA
 - Hibernate ORM
+- JDBC
 - Maven
 
 ### Frontend
@@ -29,103 +91,110 @@ The project focuses on implementing secure authentication, role-based access con
 
 ### Database
 - MySQL
-- JDBC
-- JPA / Hibernate
+- Spring Data JPA
+- Hibernate ORM
 
-## ✨ Implemented Features
+### Development Tools
+- IntelliJ IDEA
+- Git & GitHub
+- Maven
+- MySQL Workbench
+- Postman
 
-### 1. User Registration
-- Register new users.
-- Check whether an email address is already registered.
-- Support user-type selection.
-- Persist user information using the service layer and database.
+## 🏗️ Application Architecture
 
-### 2. User Login
-- Authenticate users using Spring Security.
-- Use a configured authentication provider.
-- Redirect authenticated users through a custom authentication success handler.
-- Retrieve the authenticated username and granted authorities.
-
-### 3. Role-Based Authorization
-The application supports the following user authorities:
-
-- **Job Seeker**
-- **Recruiter**
-
-Spring Security controls access to public and authenticated routes based on the configured authorization rules.
-
-### 4. Dashboard
-- Render the dashboard using Thymeleaf.
-- Display the authenticated username.
-- Retrieve the current user's profile through the service layer.
-- Provide navigation options based on user authorities.
-
-### 5. Logout
-- Handle logout using Spring Security.
-- Redirect users to the configured home page after logout.
-
-## 📂 Project Structure
-
-The project uses the standard Maven directory layout.
+The application follows a layered MVC architecture.
 
 ```text
-Dev-Job-Application/
-├── .mvn/
-│   └── wrapper/
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── com/ankit/jobportal/
-│   │   │       ├── config/
-│   │   │       ├── controller/
-│   │   │       ├── entity/
-│   │   │       ├── repository/
-│   │   │       ├── service/
-│   │   │       └── JobportalApplication.java
-│   │   └── resources/
-│   │       ├── static/
-│   │       ├── templates/
-│   │       └── application.properties
-│   └── test/
-├── mvnw
-├── mvnw.cmd
-├── pom.xml
-└── README.md
+src/main/java/com/ankit/jobportal/
+│
+├── config/
+│   └── Security Configuration
+│
+├── controller/
+│   ├── UsersController
+│   ├── JobPostActivityController
+│   ├── RecruiterProfileController
+│   └── JobSeekerApplyController
+│
+├── entity/
+│   ├── Users
+│   ├── RecruiterProfile
+│   ├── JobPostActivity
+│   ├── JobCompany
+│   ├── JobLocation
+│   ├── RecruiterJobDto
+│   └── IRecruiterJob
+│
+├── repository/
+│   ├── UsersRepository
+│   ├── RecruiterProfileRepository
+│   └── JobPostActivityRepository
+│
+├── services/
+│   ├── UsersService
+│   ├── RecruiterProfileService
+│   └── JobPostActivityService
+│
+└── util/
+    └── FileUploadUtil
 ```
 
-*Note: Package and file names above illustrate the intended organization. Adjust them to match the actual source files in the repository.*
+```text
+src/main/resources/
+│
+├── static/
+│   ├── css/
+│   ├── js/
+│   └── images/
+│
+├── templates/
+│   ├── login.html
+│   ├── dashboard.html
+│   ├── recruiter_profile.html
+│   ├── add-jobs.html
+│   └── job-details.html
+│
+└── application.properties
+```
+
+*Note: This illustrates the main application components; refer to the repository for the complete source structure.*
 
 ## ⚙️ Getting Started
 
 ### Prerequisites
 
-Make sure you have the following installed:
+Make sure you have installed:
 
-- Java Development Kit (JDK) 21
+- JDK 21
 - MySQL Server
-- Maven, or the included Maven Wrapper
-- IntelliJ IDEA, Eclipse, or another Java IDE
+- IntelliJ IDEA or Eclipse
+- Git
+- Maven (or use the included Maven Wrapper)
 
 ### 1. Clone the repository
 
 ```bash
 git clone https://github.com/ankitraghav321/Dev-Job-Application.git
+
 cd Dev-Job-Application
 ```
 
-### 2. Create the MySQL database
+### 2. Create the database
 
-Open MySQL and execute:
+Open MySQL Workbench or your MySQL terminal and execute:
 
 ```sql
 CREATE DATABASE jobportal;
 ```
 
-Configure a MySQL user with the required privileges for the application.
+### 3. Configure database connection
 
-### 3. Configure the database connection
+Open:
 
-Update `src/main/resources/application.properties` with your local database configuration.
+`src/main/resources/application.properties`
+
+Configure your MySQL connection:
 
 ```properties
 spring.application.name=jobportal
@@ -138,111 +207,110 @@ spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
 ```
 
-Set the `DB_USERNAME` and `DB_PASSWORD` environment variables before starting the application.
+Set the `DB_USERNAME` and `DB_PASSWORD` environment variables in your IDE or operating system.
 
-For local development, configure these variables using your IDE's run configuration or your operating system's environment settings.
-
-**Security note:** Do not commit database passwords or other credentials to a public repository.
+**Important:** Never commit database credentials or sensitive configuration to GitHub.
 
 ### 4. Run the application
 
-On Windows PowerShell:
+Using Maven Wrapper on Windows:
 
 ```powershell
 .\mvnw.cmd spring-boot:run
 ```
 
-Alternatively, if Maven is installed:
+Alternatively, using installed Maven:
 
 ```bash
 mvn spring-boot:run
 ```
 
-### 5. Open the application
+### 5. Access the application
 
-Visit:
+Open your browser:
 
 ```text
 http://localhost:8080
 ```
 
-Open the registration page, create an account, and log in using your registered credentials.
-
-The exact entry URL depends on the controller mappings configured in the application.
+Register a new account, log in, and explore the available functionality according to your assigned role.
 
 ## 🔐 Security Implementation
 
-Spring Security is used to configure authentication and authorization.
+Spring Security handles authentication and authorization.
 
-The current implementation includes:
+Current implementation includes:
 
 - Custom login page.
-- Configured authentication provider.
-- Custom `AuthenticationSuccessHandler`.
-- Role/authority-based access rules.
-- Protected routes for authenticated users.
-- Logout URL and post-logout redirect.
+- Authentication provider.
+- Custom authentication success handler.
+- Role/authority-based authorization.
+- Protected application routes.
+- Logout handling.
 - Thymeleaf Spring Security integration.
 
-The final access policy depends on the matchers and authorization rules defined in `WebSecurityConfig`.
+## 🗄️ Database & Data Access
 
-## 🗄️ Database
+The application uses MySQL as its relational database.
 
-The application connects to MySQL using Spring Data JPA and Hibernate.
+Spring Data JPA and Hibernate handle entity persistence and database operations.
 
-The database stores application data through the entity and repository layers.
+For recruiter dashboard statistics, the application also uses:
 
-The current database configuration targets:
+- Native SQL queries.
+- Interface-based projections.
+- DTO-based data transfer.
+- SQL aggregation using `COUNT()`.
+- Joins across job, company, location, and application tables.
 
-```text
-Database: jobportal
-Host: localhost
-Port: 3306
-```
+## 🗺️ Future Enhancements / Roadmap
 
-## 🗺️ Development Roadmap
+The following functionalities are planned for future development:
 
-Potential future improvements include:
-
-- Recruiter profile creation and editing.
-- Job posting and management.
-- Job search, filtering, and pagination.
-- Job application submission.
-- Tracking application status.
-- Job Seeker profile management.
-- Improved validation and exception handling.
-- Unit and integration testing.
-- REST API development.
-
-These items are planned enhancements and are not represented as completed features.
+- [ ] Complete job application submission workflow.
+- [ ] Job seeker profile management.
+- [ ] Resume upload and management.
+- [ ] Job search and filtering.
+- [ ] Pagination and sorting.
+- [ ] Application status tracking.
+- [ ] Recruiter applicant management.
+- [ ] Update and delete job postings.
+- [ ] Improved validation and exception handling.
+- [ ] REST API development.
+- [ ] Unit and integration testing.
+- [ ] Email notifications.
 
 ## 🎯 Learning Objectives
 
-This project provides practical experience with:
+Through this project, I am gaining practical experience in:
 
-- Java and Spring Boot application development.
+- Java backend development.
+- Spring Boot application development.
 - Spring Security authentication and authorization.
-- Custom authentication success handlers.
-- MVC architecture and Thymeleaf templates.
 - Spring Data JPA and Hibernate.
-- MySQL database integration.
+- Entity relationships and database mapping.
+- Native SQL queries and JPA projections.
+- DTO-based data transfer.
+- MVC architecture.
+- Thymeleaf server-side rendering.
+- File upload and storage.
 - Maven dependency management.
-- Debugging and troubleshooting web applications.
+- Debugging and troubleshooting.
 
 ## 👨‍💻 Author
 
 **Ankit Raghav**
 
-Java Backend Developer | Spring Boot | Spring Security | MySQL
+Java Backend Developer | Spring Boot | Spring Security | Hibernate | MySQL
 
-GitHub: [ankitraghav321](https://github.com/ankitraghav321)
+- GitHub: [ankitraghav321](https://github.com/ankitraghav321)
 
 ## 📌 Project Status
 
-**In active development.**
+**Currently in Active Development 🚧**
 
-Registration, login, logout, authentication handling, and the dashboard are implemented. More features will be added as development progresses.
+The project is being developed incrementally, with new features and improvements added regularly.
 
 ---
 
-If you find this project useful or have suggestions for improvement, feel free to explore the repository and share feedback.
+⭐ If you find this project interesting, feel free to explore the repository and share your feedback.
