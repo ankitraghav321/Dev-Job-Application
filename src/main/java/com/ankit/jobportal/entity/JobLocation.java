@@ -20,7 +20,7 @@ public class JobLocation {
     public JobLocation() {
     }
 
-    public JobLocation(String country, String state, String city, Integer id) {
+    public JobLocation(Integer id, String city, String state, String country) {
         this.country = country;
         this.state = state;
         this.city = city;
