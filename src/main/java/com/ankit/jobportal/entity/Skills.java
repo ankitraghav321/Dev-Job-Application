@@ -7,13 +7,14 @@ import jakarta.persistence.*;
 public class Skills {
 
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     private String name;
 
     private String experienceLevel;
 
-    private String yearofExperience;
+    private String yearsOfExperience;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "job_seeker_profile")
@@ -22,19 +23,19 @@ public class Skills {
     public Skills() {
     }
 
-    public Skills(int id, String name, String experienceLevel, String yearofExperience, JobSeekerProfile jobSeekerProfil) {
+    public Skills(Integer id, String name, String experienceLevel, String yearsOfExperience, JobSeekerProfile jobSeekerProfil) {
         this.id = id;
         this.name = name;
         this.experienceLevel = experienceLevel;
-        this.yearofExperience = yearofExperience;
+        this.yearsOfExperience = yearsOfExperience;
         this.jobSeekerProfile = jobSeekerProfil;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -54,12 +55,12 @@ public class Skills {
         this.experienceLevel = experienceLevel;
     }
 
-    public String getYearofExperience() {
-        return yearofExperience;
+    public String getYearsOfExperience() {
+        return yearsOfExperience;
     }
 
-    public void setYearofExperience(String yearofExperience) {
-        this.yearofExperience = yearofExperience;
+    public void setYearsOfExperience(String yearsOfExperience) {
+        this.yearsOfExperience = yearsOfExperience;
     }
 
     public JobSeekerProfile getJobSeekerProfil() {
@@ -76,7 +77,7 @@ public class Skills {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", experienceLevel='" + experienceLevel + '\'' +
-                ", yearofExperience='" + yearofExperience + '\'' +
+                ", yearsOfExperience='" + yearsOfExperience + '\'' +
                 ", jobSeekerProfil=" + jobSeekerProfile +
                 '}';
     }
