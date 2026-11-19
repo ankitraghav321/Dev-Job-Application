@@ -55,12 +55,15 @@ public class WebSecurityConfig {
 
         http.formLogin(form->form.loginPage("/login").permitAll()
                 .successHandler(customAuthenticationSuccessHandler))
-                .logout(logout -> {
-                    logout.logoutUrl("/logout");
-                    logout.logoutSuccessUrl("/");
-                }).cors(Customizer.withDefaults())
-                .csrf(csrf ->csrf.disable());
-
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .permitAll()
+                ).cors(Customizer.withDefaults())
+//                .csrf(csrf ->csrf.disable());
+                .csrf(Customizer.withDefaults());
         return http.build();
     }
 
