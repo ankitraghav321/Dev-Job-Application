@@ -23,4 +23,13 @@ public class UsersTypeService {
     public List<UsersType> getAll(){
         return usersTypeRepository.findAll();
     }
+
+
+    public UsersType findById(Integer userTypeId) {
+
+        return usersTypeRepository.findById(userTypeId)
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Invalid user type ID")
+                );
+    }
 }
